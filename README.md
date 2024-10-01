@@ -21,3 +21,11 @@ Frontend:
 
 Why Python instead of Node? For the sake of having more practice with
 Python backends.
+
+### Docs
+
+[Changelog](https://github.com/aleksinuora/thingswotilike/blob/main/docs/changelog.md)
+
+[Timelog](https://github.com/aleksinuora/thingswotilike/blob/main/docs/timelog.md)
+
+[Todo](https://github.com/aleksinuora/thingswotilike/blob/main/docs/to-do.md)
