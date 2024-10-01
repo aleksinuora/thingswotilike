@@ -1,0 +1,25 @@
+import CreditEntry from './CreditEntry';
+import { Fragment } from 'preact';
+
+const ContentColumn = ({ content }) => {
+  return (
+    <div>
+      <h2>Television</h2>
+      <table>
+        <tbody>
+          {content.map((person) => (
+            <Fragment key={person._id}>
+              {person.credit_details[0] ? (
+                <CreditEntry person={person} />
+              ) : (
+                <></>
+              )}
+            </Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default ContentColumn;
