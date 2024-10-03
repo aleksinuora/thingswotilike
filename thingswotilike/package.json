@@ -14,7 +14,8 @@
     "@mui/material": "^6.1.1",
     "axios": "^1.7.7",
     "preact": "^10.23.1",
-    "preact-iso": "^2.6.3"
+    "preact-iso": "^2.6.3",
+    "react-redux": "^9.1.2"
   },
   "eslintConfig": {
     "extends": "preact"

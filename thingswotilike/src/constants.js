@@ -1,3 +1,1 @@
-const baseUrl = 'http://localhost:8000/api';
-
-export default baseUrl;
+export const apiUrl = 'http://localhost:8000/api';

@@ -38,17 +38,25 @@ const PeopleColumn = ({ people, setPeople }) => {
   return (
     <div>
       <h3>Followed people</h3>
-      <ul>
-        {people.map((person) => (
-          <li key={person._id}>
-            {person.name}
-            <Button key={person._id} onClick={() => setSelectedPerson(person)}>
-              X
-            </Button>
-          </li>
-        ))}
-      </ul>
-      {selectedPerson !== null ? <UnfollowDialog /> : <></>}
+      {people ? (
+        <ul>
+          {people.map((person) => (
+            <li key={person._id}>
+              {person.name}
+              <Button
+                key={person._id}
+                onClick={() => setSelectedPerson(person)}
+              >
+                X
+              </Button>
+            </li>
+          ))}
+          {}
+        </ul>
+      ) : (
+        <>Loading</>
+      )}
+      {selectedPerson != null ? <UnfollowDialog /> : <></>}
     </div>
   );
 };

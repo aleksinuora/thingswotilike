@@ -1,7 +1,12 @@
 import axios from 'axios';
-import baseUrl from '../constants';
+import { apiUrl } from '../constants';
 
 export const getCredits = async () => {
-  const { data } = await axios.get(`${baseUrl}/credits`);
+  const { data } = await axios.get(`${apiUrl}/credits`);
+  return data;
+};
+
+export const getCreditsById = async (id) => {
+  const { data } = await axios.get(`${apiUrl}/credits/${id}`);
   return data;
 };

@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import useDebounce from '../hooks/useDebounce';
 import { findPerson, addPerson } from '../services/people';
+import { getCreditsById } from '../services/credits';
 import {
   Dialog,
   Button,
@@ -9,7 +10,7 @@ import {
   DialogActions,
 } from '@mui/material';
 
-const PeopleSearch = ({ people, setPeople }) => {
+const PeopleSearch = ({ people, setPeople, tvShows, setTvShows }) => {
   const [searchWord, setSearchWord] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState(null);
   const [selectedPerson, setSelectedPerson] = useState(null);
@@ -31,7 +32,12 @@ const PeopleSearch = ({ people, setPeople }) => {
 
   const handleClose = () => setSelectedPerson(null);
   const handleFollow = (name, id) => {
-    addPerson(name, id).then((result) => setPeople([...people, result]));
+    addPerson(name, id).then((person) => {
+      setPeople([person, ...people]);
+      getCreditsById(person._id).then((credits) => {
+        setTvShows([credits, ...tvShows]);
+      });
+    });
     setSearchWord('');
     setSelectedPerson(null);
   };

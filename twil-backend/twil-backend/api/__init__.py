@@ -4,8 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from api.routes import router as people_router
-
-from mock_db import conan
 from config import DB_URI
 
 
