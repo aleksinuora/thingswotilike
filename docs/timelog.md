@@ -36,4 +36,6 @@ DD:MM:YYYY | HH:MM | DESCRIPTION
 -----------
 02.10.2024 | 02:00 | Cleanup, initial documentation, push the project to Git.
 -----------
+04.10.2024 | 04:00 | Routes for front, starting out watch list functionality.
+-----------
 ```
