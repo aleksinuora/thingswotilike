@@ -39,3 +39,9 @@ DD:MM:YYYY | HH:MM | DESCRIPTION
 04.10.2024 | 04:00 | Routes for front, starting out watch list functionality.
 -----------
 ```
+### Week 4
+```
+-----------
+08.10.2024 | 04:30 | Switched to Redux.
+-----------
+```

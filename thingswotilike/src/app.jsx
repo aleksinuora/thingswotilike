@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 import { Router, LocationProvider, ErrorBoundary } from 'preact-iso';
 import ContentColumn from './components/ContentColumn';
 import PeopleColumn from './components/PeopleColumn';
 import PeopleSearch from './components/PeopleSearch';
 import NavBar from './components/NavBar';
-import { getPeople } from './services/people';
-import { getCredits } from './services/credits';
+import Watching from './components/Watching';
+import { useDispatch } from 'react-redux';
+import { initializePeople } from './reducers/peopleReducer';
+import { initializeCredits } from './reducers/creditsReducer';
+import { initializeWatchList } from './reducers/watchListReducer';
 
 export function App() {
-  const [tvShows, setTvShows] = useState(null);
-  const [people, setPeople] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchShows = async () => {
-      const shows = await getCredits();
-      setTvShows(shows);
-    };
-    const fetchPeople = async () => {
-      const peopleTemp = await getPeople();
-      setPeople(peopleTemp);
-    };
-    fetchShows();
-    fetchPeople();
-  }, []);
+    dispatch(initializeCredits());
+    dispatch(initializePeople());
+    dispatch(initializeWatchList());
+  }, [dispatch]);
 
   return (
     <LocationProvider>
@@ -32,24 +27,18 @@ export function App() {
         </div>
 
         <br />
-        <PeopleSearch
-          people={people}
-          setPeople={setPeople}
-          tvShows={tvShows}
-          setTvShows={setTvShows}
-        />
+        <PeopleSearch />
 
         <Router>
-          <ContentColumn path='/' content={tvShows} />
+          <ContentColumn path='/' />
+        </Router>
+        <Router>
+          <PeopleColumn path={`/followed`} />
+        </Router>
+        <Router>
+          <Watching path={'/watching'} />
         </Router>
       </ErrorBoundary>
-      <Router>
-        <PeopleColumn
-          path={`/followed`}
-          people={people}
-          setPeople={setPeople}
-        />
-      </Router>
     </LocationProvider>
   );
 }

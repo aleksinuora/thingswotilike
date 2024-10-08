@@ -3,7 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from typing import List
 
 from api.models.person import Person, PersonSearchResult, PersonToAdd
-from api.models.credit import Credits
+from api.models.credit import Credits, WatchListEntry, WatchListEntryToAdd
+from api.models.tvshow import TvShow
 from api.outgoing_requests import find_tv_person, get_tv_credits
 
 router = APIRouter()
@@ -28,6 +29,11 @@ def aggregate_credits(id: int, request: Request):
 def get_credits(request: Request):
     credits = list(request.app.db['credit'].find(limit=100))
     return credits
+
+@router.get('/watch_list', response_description='Get watch list of interesting works', response_model=List[WatchListEntry])
+def get_watch_list(request: Request):
+    watch_list = list(request.app.db['watch_list'].find(limit=100))
+    return watch_list
 
 @router.get('/credits/{id}', response_description='Get collected credits by person id', response_model=Credits)
 def get_credits_by_id(id: str, request: Request):
@@ -64,6 +70,15 @@ def create_person(request: Request, person_to_add: PersonToAdd = Body(...)):
     )
 
     return added_person
+
+@router.post('/watch_list', response_description='Add an entry to the watch list', status_code=status.HTTP_201_CREATED, response_model=WatchListEntry)
+def create_watch_list_entry(request: Request, entry_to_add: WatchListEntryToAdd = Body(...)):
+    if request.app.db['watch_list'].count_documents({'tvmaze_id': entry_to_add.tvmaze_id}, limit = 1) == 0:
+        added_entry = request.app.db['watch_list'].insert_one(jsonable_encoder(entry_to_add))
+        return added_entry
+    
+    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f'Entry already exists')
+    
 
 @router.delete('/people/{id}', response_description='Remove a person')
 def delete_person(id: str, request: Request, response: Response):

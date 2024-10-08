@@ -1,4 +1,5 @@
-import { unfollowPerson } from '../services/people';
+import { deletePerson } from '../reducers/peopleReducer';
+import { dropCredits } from '../reducers/creditsReducer';
 import {
   Dialog,
   DialogContent,
@@ -7,15 +8,17 @@ import {
   Button,
 } from '@mui/material';
 import { useState } from 'preact/hooks';
+import { useDispatch, useSelector } from 'react-redux';
 
-const PeopleColumn = ({ people, setPeople }) => {
+const PeopleColumn = () => {
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const dispatch = useDispatch();
+  const people = useSelector((state) => state.people);
 
   const handleClose = () => setSelectedPerson(null);
   const handleUnfollow = () => {
-    unfollowPerson(selectedPerson._id).then(() => {
-      setPeople(people.filter((p) => p._id !== selectedPerson._id));
-    });
+    dispatch(deletePerson(selectedPerson._id));
+    dispatch(dropCredits(selectedPerson._id));
     setSelectedPerson(null);
   };
 

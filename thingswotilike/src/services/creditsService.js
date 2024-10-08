@@ -10,3 +10,8 @@ export const getCreditsById = async (id) => {
   const { data } = await axios.get(`${apiUrl}/credits/${id}`);
   return data;
 };
+
+export default {
+  getCredits,
+  getCreditsById,
+};

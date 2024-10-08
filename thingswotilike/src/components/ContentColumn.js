@@ -1,14 +1,17 @@
 import CreditEntry from './CreditEntry';
 import { Fragment } from 'preact';
+import { useSelector } from 'react-redux';
 
-const ContentColumn = ({ content }) => {
+const ContentColumn = () => {
+  const credits = useSelector((state) => state.credits);
+
   return (
     <div>
       <h2>Television</h2>
-      {content ? (
+      {credits ? (
         <table>
           <tbody>
-            {content.map((person) => (
+            {credits.map((person) => (
               <Fragment key={person._id}>
                 {person.credit_details[0] ? (
                   <CreditEntry person={person} />

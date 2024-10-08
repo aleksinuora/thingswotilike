@@ -1,5 +1,5 @@
 const CreditEntry = ({ person }) => {
-  const sortedCredits = person.credit_details.sort((a, b) => {
+  const sortedCredits = [...person.credit_details].sort((a, b) => {
     return new Date(b.work.premiered) - new Date(a.work.premiered);
   });
 

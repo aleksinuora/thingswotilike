@@ -16,4 +16,11 @@ class Credits(BaseModel):
     person_name: Optional[str]
     credit_details: List[CreditDetails]
     
+class WatchListEntry(BaseModel):
+    id: str = Field(default_factory=uuid.uuid4, alias='_id')
+    person_name: str = Field(...)
+    credit_details: CreditDetails
 
+class WatchListEntryToAdd(BaseModel):
+    person_name: str = Field(...)
+    credit_details: CreditDetails

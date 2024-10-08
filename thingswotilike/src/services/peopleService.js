@@ -26,3 +26,10 @@ export const unfollowPerson = async (id) => {
     .delete(`${apiUrl}/people/${id}`)
     .catch((error) => console.log(error));
 };
+
+export default {
+  getPeople,
+  findPerson,
+  addPerson,
+  unfollowPerson,
+};

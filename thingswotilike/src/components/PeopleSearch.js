@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
 import useDebounce from '../hooks/useDebounce';
-import { findPerson, addPerson } from '../services/people';
-import { getCreditsById } from '../services/credits';
+import { findPerson } from '../services/peopleService';
 import {
   Dialog,
   Button,
@@ -9,11 +8,15 @@ import {
   DialogContentText,
   DialogActions,
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { createPerson } from '../reducers/peopleReducer';
 
-const PeopleSearch = ({ people, setPeople, tvShows, setTvShows }) => {
+const PeopleSearch = () => {
   const [searchWord, setSearchWord] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState(null);
   const [selectedPerson, setSelectedPerson] = useState(null);
+
+  const dispatch = useDispatch();
 
   useDebounce(
     () => {
@@ -32,17 +35,14 @@ const PeopleSearch = ({ people, setPeople, tvShows, setTvShows }) => {
 
   const handleClose = () => setSelectedPerson(null);
   const handleFollow = (name, id) => {
-    addPerson(name, id).then((person) => {
-      setPeople([person, ...people]);
-      getCreditsById(person._id).then((credits) => {
-        setTvShows([credits, ...tvShows]);
-      });
-    });
+    dispatch(createPerson(name, id));
     setSearchWord('');
     setSelectedPerson(null);
   };
 
-  const handleSearch = (e) => setSearchWord(e.target.value);
+  const handleSearch = (e) => {
+    setSearchWord(e.target.value);
+  };
 
   const FollowDialog = ({ name, id }) => {
     return (
