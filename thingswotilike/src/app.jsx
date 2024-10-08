@@ -17,7 +17,8 @@ export function App() {
     dispatch(initializeCredits());
     dispatch(initializePeople());
     dispatch(initializeWatchList());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <LocationProvider>

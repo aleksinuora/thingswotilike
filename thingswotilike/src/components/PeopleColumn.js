@@ -1,5 +1,5 @@
 import { deletePerson } from '../reducers/peopleReducer';
-import { dropCredits } from '../reducers/creditsReducer';
+import { removeCredits } from '../reducers/creditsReducer';
 import {
   Dialog,
   DialogContent,
@@ -18,7 +18,7 @@ const PeopleColumn = () => {
   const handleClose = () => setSelectedPerson(null);
   const handleUnfollow = () => {
     dispatch(deletePerson(selectedPerson._id));
-    dispatch(dropCredits(selectedPerson._id));
+    dispatch(removeCredits(selectedPerson._id));
     setSelectedPerson(null);
   };
 

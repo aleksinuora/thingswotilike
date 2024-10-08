@@ -73,9 +73,16 @@ def create_person(request: Request, person_to_add: PersonToAdd = Body(...)):
 
 @router.post('/watch_list', response_description='Add an entry to the watch list', status_code=status.HTTP_201_CREATED, response_model=WatchListEntry)
 def create_watch_list_entry(request: Request, entry_to_add: WatchListEntryToAdd = Body(...)):
-    if request.app.db['watch_list'].count_documents({'tvmaze_id': entry_to_add.tvmaze_id}, limit = 1) == 0:
-        added_entry = request.app.db['watch_list'].insert_one(jsonable_encoder(entry_to_add))
-        return added_entry
+    if request.app.db['watch_list'].count_documents({'tvmaze_id': entry_to_add.credit_details.work.tvmaze_id}, limit = 1) == 0:
+        entry = jsonable_encoder(WatchListEntry(
+            person_name = entry_to_add.person_name,
+            credit_details = entry_to_add.credit_details
+        ))
+        added_entry = request.app.db['watch_list'].insert_one(entry)
+        return_entry = request.app.db['watch_list'].find_one(
+            {'_id': added_entry.inserted_id}
+        )
+        return return_entry
     
     raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f'Entry already exists')
     

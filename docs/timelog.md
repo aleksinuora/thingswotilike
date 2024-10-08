@@ -44,4 +44,6 @@ DD:MM:YYYY | HH:MM | DESCRIPTION
 -----------
 08.10.2024 | 04:30 | Switched to Redux.
 -----------
+09.10.2024 | 04:00 | Fixed Redux bugs, implemented watch list.
+-----------
 ```

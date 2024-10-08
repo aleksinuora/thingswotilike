@@ -6,15 +6,12 @@ const peopleSlice = createSlice({
   initialState: [],
   reducers: {
     setPeople(state, action) {
-      console.log('setPeople');
       return action.payload;
     },
     appendPerson(state, action) {
-      console.log('appendPerson ');
       return [...state, action.payload];
     },
     unfollowPerson(state, action) {
-      console.log('unfollowPerson ');
       const _id = action.payload;
       const newState = state.filter((person) => person._id !== _id);
       return newState;
@@ -35,6 +32,8 @@ export const createPerson = (name, api_specific_id) => {
   return async (dispatch) => {
     const newPerson = await peopleService.addPerson(name, api_specific_id);
     dispatch(appendPerson(newPerson));
+
+    return newPerson;
   };
 };
 

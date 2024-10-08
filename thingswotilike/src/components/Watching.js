@@ -8,7 +8,15 @@ const Watching = () => {
       {watchList.length !== 0 ? (
         <ul>
           {watchList.map((entry) => {
-            return <li key={entry._id}>{entry.credit_details.work.title}</li>;
+            return (
+              <li key={entry._id}>
+                <a
+                  href={`https://imdb.com/title/${entry.credit_details.work.imdb}`}
+                >
+                  {entry.credit_details.work.title}
+                </a>
+              </li>
+            );
           })}
         </ul>
       ) : (

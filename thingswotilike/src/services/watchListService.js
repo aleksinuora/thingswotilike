@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { apiUrl } from '../constants';
 
-export const addToWatchList = async (person_name, credit_details) => {
+export const addWatchListEntry = async (person_name, credit_details) => {
   const { data } = await axios
     .post(`${apiUrl}/watch_list`, {
       person_name,
@@ -17,6 +17,6 @@ export const getWatchList = async () => {
 };
 
 export default {
-  addToWatchList,
+  addWatchListEntry,
   getWatchList,
 };

@@ -6,11 +6,10 @@ const watchListSlice = createSlice({
   initialState: [],
   reducers: {
     setWatchList(state, action) {
-      console.log('setWatchList');
       return action.payload;
     },
     appendToWatchList(state, action) {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     },
     dropFromWatchList(state, action) {
       const _id = action.payload._id;
@@ -32,7 +31,10 @@ export const initializeWatchList = () => {
 
 export const addToWatchList = (personName, credit) => {
   return async (dispatch) => {
-    const newEntry = await watchListService.addToWatchList(personName, credit);
+    const newEntry = await watchListService.addWatchListEntry(
+      personName,
+      credit
+    );
     dispatch(appendToWatchList(newEntry));
   };
 };

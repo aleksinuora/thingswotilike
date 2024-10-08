@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { createPerson } from '../reducers/peopleReducer';
+import { addCredits } from '../reducers/creditsReducer';
 
 const PeopleSearch = () => {
   const [searchWord, setSearchWord] = useState('');
@@ -35,7 +36,9 @@ const PeopleSearch = () => {
 
   const handleClose = () => setSelectedPerson(null);
   const handleFollow = (name, id) => {
-    dispatch(createPerson(name, id));
+    dispatch(createPerson(name, id)).then((res) =>
+      dispatch(addCredits(res._id))
+    );
     setSearchWord('');
     setSelectedPerson(null);
   };

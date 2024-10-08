@@ -1,18 +1,33 @@
+import { Button } from '@mui/material';
+import { addToWatchList } from '../reducers/watchListReducer';
+import { useDispatch } from 'react-redux';
+
 const CreditEntry = ({ person }) => {
-  const sortedCredits = [...person.credit_details].sort((a, b) => {
-    return new Date(b.work.premiered) - new Date(a.work.premiered);
-  });
+  const dispatch = useDispatch();
+
+  const handleWatch = (personName, creditDetails) => {
+    dispatch(addToWatchList(personName, creditDetails));
+  };
 
   return (
     <tr>
       <th>{person.person_name}</th>
-      as <th>{sortedCredits[0].role_type}</th>
+      as <th>{person.credit_details[0].role_type}</th>
       in{' '}
       <th>
-        <a href={`https://imdb.com/title/${sortedCredits[0].work.imdb}`}>
-          {sortedCredits[0].work.title}
+        <a
+          href={`https://imdb.com/title/${person.credit_details[0].work.imdb}`}
+        >
+          {person.credit_details[0].work.title}
         </a>
       </th>
+      <Button
+        onClick={() =>
+          handleWatch(person.person_name, person.credit_details[0])
+        }
+      >
+        +
+      </Button>
     </tr>
   );
 };
