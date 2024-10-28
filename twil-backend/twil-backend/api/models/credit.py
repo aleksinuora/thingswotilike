@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 import uuid
 from pydantic import BaseModel, Field
 from api.models.tvshow import TvShow
@@ -6,7 +6,7 @@ from api.models.tvshow import TvShow
 from constants import MediumEnum
 
 class CreditDetails(BaseModel):
-    work: TvShow | str = Field(...)
+    work: Union[TvShow, str]
     medium: MediumEnum
     role_type: str = Field(...)
 

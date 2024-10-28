@@ -1,19 +1,18 @@
-import axios from 'axios';
-import { apiUrl } from '../constants';
+import axios from './apiClient';
 
 export const getPeople = async () => {
-  const { data } = await axios.get(`${apiUrl}/people`);
+  const { data } = await axios.get(`/people`);
   return data;
 };
 
 export const findPerson = async (name) => {
-  const { data } = await axios.get(`${apiUrl}/people/search/${name}`);
+  const { data } = await axios.get(`/people/search/${name}`);
   return data;
 };
 
 export const addPerson = async (name, api_specific_id) => {
   const { data } = await axios
-    .post(`${apiUrl}/people/`, {
+    .post(`/people/`, {
       name,
       api_specific_id,
     })
@@ -22,9 +21,7 @@ export const addPerson = async (name, api_specific_id) => {
 };
 
 export const unfollowPerson = async (id) => {
-  await axios
-    .delete(`${apiUrl}/people/${id}`)
-    .catch((error) => console.log(error));
+  await axios.delete(`/people/${id}`).catch((error) => console.log(error));
 };
 
 export default {

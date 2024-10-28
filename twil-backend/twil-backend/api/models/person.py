@@ -1,5 +1,5 @@
 import uuid
-from typing import Optional, List
+from typing import Optional, List, Union
 from pydantic import BaseModel, Field
 
 
@@ -22,6 +22,6 @@ class PersonUpdate(BaseModel):
     credits_id: Optional[str]
 
 class PersonSearchResult(BaseModel):
-    score: Optional[int | float]
+    score: Union[int, float, None]
     name: str = Field(...)
     tvmaze_id: Optional[int]

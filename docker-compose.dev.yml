@@ -1,0 +1,33 @@
+services:
+  app:
+    image: twil-frontend-dev
+    build:
+      context: ./twil-frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./twil-frontend/:/usr/src/app
+    container_name: twil-frontend-container
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8080/api
+
+  server:
+    image: twil-backend-dev
+    build:
+      context: ./twil-backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./twil-backend/:/usr/src/app
+    ports:
+      - 8000:8000
+    container_name: twil-backend-dev
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: twil-reverse-proxy
+    depends_on:
+      - app
+      - server

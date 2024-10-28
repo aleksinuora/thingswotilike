@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { apiUrl } from '../constants';
+import axios from './apiClient';
 
 export const addWatchListEntry = async (person_name, credit_details) => {
   const { data } = await axios
-    .post(`${apiUrl}/watch_list`, {
+    .post(`/watch_list`, {
       person_name,
       credit_details,
     })
@@ -12,7 +11,7 @@ export const addWatchListEntry = async (person_name, credit_details) => {
 };
 
 export const getWatchList = async () => {
-  const { data } = await axios.get(`${apiUrl}/watch_list`);
+  const { data } = await axios.get(`/watch_list`);
   return data;
 };
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from typing import List
+from typing import List, Union
 
 from api.models.person import Person, PersonSearchResult, PersonToAdd
 from api.models.credit import Credits, WatchListEntry, WatchListEntryToAdd
@@ -14,7 +14,7 @@ def list_people(request: Request):
     people = list(request.app.db['people'].find(limit=50))
     return people
 
-@router.get("/people/{id}", response_description="Get a person by id", response_model=Person | None)
+@router.get("/people/{id}", response_description="Get a person by id", response_model=Union[Person, None])
 def get_person(id: str, request: Request):
     if (person := request.app.db['people'].find_one({'_id': id})) is not None:
         return person
@@ -46,7 +46,7 @@ def search_person(name: str, request: Request):
     response = find_tv_person(name)
     return response
 
-@router.post('/people/', response_description="Create a listing for a person", status_code=status.HTTP_201_CREATED, response_model=Person|None)
+@router.post('/people/', response_description="Create a listing for a person", status_code=status.HTTP_201_CREATED, response_model=Union[Person, None])
 def create_person(request: Request, person_to_add: PersonToAdd = Body(...)):
     if request.app.db['people'].count_documents({'name': person_to_add.name}, limit = 1) != 0:
         return request.app.db['people'].find_one({'name': person_to_add.name})
