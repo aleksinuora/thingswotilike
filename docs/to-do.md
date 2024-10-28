@@ -6,6 +6,6 @@
 * gigs
 * a smart way to handle updates
 * "new"-tag for unseen entries
-* watch list
+* ~~watch list~~
 * accounts
 * css

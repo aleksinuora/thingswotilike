@@ -47,3 +47,9 @@ DD:MM:YYYY | HH:MM | DESCRIPTION
 09.10.2024 | 04:00 | Fixed Redux bugs, implemented watch list.
 -----------
 ```
+### Week 5
+```
+-----------
+28.10.2024 | 04:30 | Added nginx, dev containers. Debugging aforementioned.
+-----------
+```
