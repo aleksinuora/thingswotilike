@@ -5,6 +5,7 @@ import PeopleColumn from './components/PeopleColumn';
 import PeopleSearch from './components/PeopleSearch';
 import NavBar from './components/NavBar';
 import Watching from './components/Watching';
+import About from './components/About';
 import { useDispatch } from 'react-redux';
 import { initializePeople } from './reducers/peopleReducer';
 import { initializeCredits } from './reducers/creditsReducer';
@@ -38,6 +39,9 @@ export function App() {
         </Router>
         <Router>
           <Watching path={'/watching'} />
+        </Router>
+        <Router>
+          <About path='/about' />
         </Router>
       </ErrorBoundary>
     </LocationProvider>

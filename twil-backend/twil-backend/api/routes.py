@@ -11,6 +11,7 @@ router = APIRouter()
 
 @router.get("/people", response_description="Get a list of followed people", response_model=List[Person])
 def list_people(request: Request):
+    print('GETting /people...')
     people = list(request.app.db['people'].find(limit=50))
     return people
 
@@ -27,11 +28,13 @@ def aggregate_credits(id: int, request: Request):
 
 @router.get('/credits', response_description='Get all credits in the database', response_model=List[Credits])
 def get_credits(request: Request):
+    print('GETting /credits...')
     credits = list(request.app.db['credit'].find(limit=100))
     return credits
 
 @router.get('/watch_list', response_description='Get watch list of interesting works', response_model=List[WatchListEntry])
 def get_watch_list(request: Request):
+    print('GETting /watch_list...')
     watch_list = list(request.app.db['watch_list'].find(limit=100))
     return watch_list
 

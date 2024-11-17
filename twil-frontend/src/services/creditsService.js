@@ -6,7 +6,7 @@ export const getCredits = async () => {
 };
 
 export const getCreditsById = async (id) => {
-  const { data } = await axios.get(`$/credits/${id}`);
+  const { data } = await axios.get(`/credits/${id}`);
   return data;
 };
 
